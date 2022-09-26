@@ -10,7 +10,7 @@ export const Nav = () => {
     menu = <Link to="/login" className="text-xl text-white">Login</Link>;
   } else {
     menu = (
-      <div
+      <button
         className="text-xl text-white"
         onClick={() => {
           clearAuth().then(() => {
@@ -20,7 +20,7 @@ export const Nav = () => {
         }}
       >
         Logout
-      </div>
+      </button>
     );
   }
 
