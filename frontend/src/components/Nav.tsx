@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { clearAuth } from "../api/Auth";
+import { useBoundStore } from "../store";
 
-export const Nav = (
-  props: { name: string; setName: (name: string) => void },
-) => {
+export const Nav = () => {
+  const [name, setName] = useBoundStore((state) => [state.name, state.setName]);
   let navigate = useNavigate();
   let menu;
-  if (props.name === "") {
+  if (name === "") {
     menu = <Link to="/login" className="text-xl text-white">Login</Link>;
   } else {
     menu = (
@@ -14,7 +14,7 @@ export const Nav = (
         className="text-xl text-white"
         onClick={() => {
           clearAuth().then(() => {
-            props.setName("");
+            setName("");
             navigate("/login");
           });
         }}

@@ -1,8 +1,10 @@
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setAuth } from "../api/Auth";
+import { useBoundStore } from "../store";
 
-export const Login = (props: { setName: (name: string) => void }) => {
+export const Login = () => {
+  const setName = useBoundStore((state) => state.setName);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -12,7 +14,7 @@ export const Login = (props: { setName: (name: string) => void }) => {
     e.preventDefault();
     let result = await setAuth(email, password);
     if (result.data) {
-      props.setName(result.data.name);
+      setName(result.data.name);
       navigate("/", { replace: true });
     } else {
       setErrorMsg(result.error.response.statusText);
